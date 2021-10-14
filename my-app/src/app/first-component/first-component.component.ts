@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Course } from '../first.interface';
 import { FirstService } from '../first.service';
 
 // selector  ---> html component (eg: index.html)
@@ -11,12 +12,13 @@ import { FirstService } from '../first.service';
 })
 export class FirstComponentComponent implements OnInit {
 
+  
   //FirstComponentComponent(){}//java
 
-  constructor( myservice:FirstService) { 
+  constructor( private myservice:FirstService) { 
 
-    this.course = myservice.serviceData;
-
+    //this.course = myservice.serviceData;
+    //this.getCourses();
 
   }
 
@@ -35,10 +37,12 @@ export class FirstComponentComponent implements OnInit {
     this.course = this.updateCourse();
   }
 
-  getServiceData(){
-    //this.course = serviceData.serviceData;
+  getCourses(){
+    this.myservice.getCourses().subscribe(data =>{
+      console.log("data" + JSON.stringify(data));
+      this.course = data.name;
+    });
   }
-
 
 
 }
